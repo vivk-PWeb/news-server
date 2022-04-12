@@ -1,7 +1,7 @@
 const permissionsEnum = {
-	Public: 'PUBLIC',
-	Private: 'PRIVATE',
-	Protected: 'PROTECTED',
+	Public: "PUBLIC",
+	Private: "PRIVATE",
+	Protected: "PROTECTED",
 };
 
 const Permissions = Object.freeze(permissionsEnum);
