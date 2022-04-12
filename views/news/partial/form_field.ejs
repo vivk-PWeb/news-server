@@ -1,0 +1,35 @@
+<div class="form-group">
+    <label for="title">Header</label>
+    <input required value="<%= element.header %>" type="text" name="header" id="header" class="form-control">
+</div>
+<div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" class="form-control"><%= element.description %></textarea>
+</div>
+<div class="form-group">
+    <label for="text">Text</label>
+    <textarea required name="text" id="text" class="form-control"><%= element.text %></textarea>
+</div>
+
+<div class="form-group">
+    <label for="permission">Permission</label>
+    <select name="permission" id="permission" class="form-control" aria-label=".form-select-lg example">
+        <%
+        var permissionsArray = Object.values(permissions);
+        for (var i = 0; i < permissionsArray.length; i++) {
+            var selected = (permissionsArray[i] === element.permission) ? "selected" : "";
+            %>
+            <option <%= selected %> value="<%= permissionsArray[i] %>"><%= permissionsArray[i] %></option>
+            <%
+        }
+        %>
+    </select>
+</div>
+<div class="form-group">
+    <label for="password">Password</label>
+    <input required value="<%= element.password %>" type="text" name="password" id="password" class="form-control">
+</div>
+
+
+<a href="/" class="btn btn-secondary">Cancel</a>
+<button type="submit" class="btn btn-primary">Save</button>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partial/head') %>
+
+<body>
+<div class="container">
+    <h1 class="mb-4"><%= title %></h1>
+    <a href="/news/edit" class="btn btn-success">New Element</a>
+
+    <% news.forEach(element => { %>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title"><%= element.header %></h4>
+                <div class="card-subtitle text-muted mb-2">
+                    <%= element.createdAt.toLocaleDateString() %>
+                </div>
+                <div class="card-text mb-2"><%= element.description %></div>
+
+                <a href="news/<%= element.id %>" class="btn btn-primary">Read</a>
+                <a href="news/edit/<%= element.id %>" class="btn btn-info">Edit</a>
+                <form action="/news/delete/<%= element.id %>" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    <% }) %>
+</div>
+</body>
+</html>

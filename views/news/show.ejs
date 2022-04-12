@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partial/head') %>
+
+<body>
+<div class="container">
+    <h1 class="mb-1"><%= element.header %></h1>
+    <div class="card-subtitle text-muted mb-2">
+        <%= element.createdAt.toLocaleDateString() %>
+    </div>
+    <div class="card-text mb-2"><%= element.description %></div>
+    <div class="card-text mb-2"><%= element.text %></div>
+
+    <a href="/" class="btn btn-secondary">All Elements</a>
+    <a href="/news/edit/<%= element.id %>" class="btn btn-info">Edit</a>
+</div>
+</body>
+</html>
