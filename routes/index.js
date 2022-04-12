@@ -12,7 +12,12 @@ router
 	.route('/')
 	.get(async (req, res, next) => {
 		const news = await News.find();
-		res.render('index', { news: news, title: 'Home Page'});
+		const user = res.locals.user;
+		res.render('index', {
+			news: news,
+			user: user,
+			title: 'Home Page'
+		});
 	});
 
 module.exports = router;

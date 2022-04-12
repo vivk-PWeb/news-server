@@ -6,7 +6,25 @@
 <body>
 <div class="container">
     <h1 class="mb-4"><%= title %></h1>
-    <a href="/news/edit" class="btn btn-success">New Element</a>
+    <div class="card mt-4">
+        <div class="card-body">
+            <% if (user === null) { %>
+                <a href="/auth/sign-in" class="btn btn-success">Sign-In</a>
+                <a href="/auth/sign-up" class="btn btn-success">Sign-Up</a>
+            <% } else { %>
+                <div class="card-subtitle text-muted mb-2">
+                    <%= user.email %>
+                </div>
+                <a href="/auth/sign-out" class="btn btn-danger">Sign-Out</a>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <a href="/news/edit" class="btn btn-success">New Element</a>
+        </div>
+    </div>
 
     <% news.forEach(element => { %>
         <div class="card mt-4">
