@@ -1,7 +1,7 @@
 const express = require("express");
 
-const Permissions = require("../enums/permissions");
-const News = require("../models/news");
+const Permissions = require("../../enums/permissions");
+const News = require("../../models/news");
 
 const newsRouter = express.Router();
 
