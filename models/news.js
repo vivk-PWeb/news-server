@@ -8,6 +8,9 @@ const newsSchema = new Schema({
 		required: true,
 		unique: true
 	},
+	description: {
+		type: String
+	},
 	text: {
 		type: String,
 		required: true
@@ -20,7 +23,11 @@ const newsSchema = new Schema({
 	password: {
 		type: String,
 		default: ''
-	}
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now
+	},
 });
 
 const News = mongoose.model("News", newsSchema);
