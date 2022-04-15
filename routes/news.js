@@ -1,12 +1,13 @@
 const express = require('express');
 const News = require('./../models/news');
 const Permissions = require('../enums/permissions');
+const { requireAuth, requireEditorRole } = require("../middleware/auth");
 
 const router = express.Router();
 
 router
 	.route('/edit')
-	.get((req, res, next) => {
+	.get(requireAuth, requireEditorRole, (req, res, next) => {
 		const element = new News();
 		res.render('news/edit', {
 			title: "New",
@@ -18,7 +19,7 @@ router
 
 router
 	.route('/edit/:id')
-	.get(async (req, res, next) => {
+	.get(requireAuth, requireEditorRole, async (req, res, next) => {
 		const element = await News.findById(req.params.id);
 		res.render('news/edit', {
 			title: "Edit",
@@ -31,7 +32,16 @@ router
 router
 	.route('/:id')
 	.get(async (req, res, next) => {
-		const element = await News.findById(req.params.id);
+		res.element = await News.findById(req.params.id);
+
+		const privateValidate = res.element.permission === Permissions.Private;
+		if (privateValidate) {
+			requireAuth(req, res, next);
+		} else {
+			next();
+		}
+	}, (req, res, next) => {
+		const element = res.element;
 
 		const protectedValidate = element.permission === Permissions.Protected;
 		const passwordValidate = req.cookies[element.id] === element.password;
@@ -81,24 +91,23 @@ router
 		}
 	});
 
-
 router
 	.route('/')
-	.post((req, res, next) => {
+	.post(requireAuth, requireEditorRole, (req, res, next) => {
 		req.element = new News();
 		next();
 	}, saveNewsAndRedirect('edit'));
 
 router
 	.route('/:id')
-	.post(async (req, res, next) => {
+	.post(requireAuth, requireEditorRole, async (req, res, next) => {
 		req.element =  await News.findById(req.params.id);
 		next();
 	}, saveNewsAndRedirect('edit'));
 
 router
 	.route('/delete/:id')
-	.post(async (req, res, next) => {
+	.post(requireAuth, requireEditorRole, async (req, res, next) => {
 		req.element =  await News.findByIdAndDelete(req.params.id);
 		res.redirect('/');
 	});
