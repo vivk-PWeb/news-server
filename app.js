@@ -9,6 +9,7 @@ const { checkUser } = require('./middleware/auth');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const newsRouter = require('./routes/news');
+const commentRoute = require('./routes/comment');
 
 const mongoose = require('mongoose');
 
@@ -37,6 +38,7 @@ app.use('*', checkUser);
 app.use('/', indexRouter);
 app.use('/auth', usersRouter);
 app.use('/news', newsRouter);
+app.use('/comment', commentRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
