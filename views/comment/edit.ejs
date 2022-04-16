@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partial/head') %>
+
+<body>
+<div class="container">
+    <h1 class="mb-4"><%= title %></h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4 class="card-title"><%= source.header %></h4>
+            <div class="card-subtitle text-muted mb-2">
+                <%= source.createdAt.toLocaleDateString() %>
+            </div>
+            <div class="card-text mb-2"><%= source.description %></div>
+        </div>
+    </div>
+    <form action="<%= useID === true ? '/comment/'+source.id+'/'+element.id : '/comment/'+source.id %>" method="POST">
+        <%- include('partial/comment_field') %>
+    </form>
+</div>
+</body>
+</html>
