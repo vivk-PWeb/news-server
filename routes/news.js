@@ -1,5 +1,8 @@
 const express = require('express');
 const News = require('./../models/news');
+const Comment = require('./../models/comment');
+const User = require("../models/user");
+
 const Permissions = require('../enums/permissions');
 const { requireAuth, requireEditorRole } = require("../middleware/auth");
 
@@ -40,7 +43,7 @@ router
 		} else {
 			next();
 		}
-	}, (req, res, next) => {
+	}, async (req, res, next) => {
 		const element = res.element;
 
 		const protectedValidate = element.permission === Permissions.Protected;
@@ -49,9 +52,17 @@ router
 		if (protectedValidate && !passwordValidate) {
 			res.redirect(`/news/protected/${element.id}`);
 		} else {
+			const comments = await Comment
+				.find({ sourceId: element.id })
+				.sort({createdAt: -1});
+			for (let index = 0; index < comments.length; index++) {
+				comments[index].author = await User.findById(comments[index].authorId);
+			}
+
 			res.render('news/show', {
 				title: "Show",
-				element: element
+				element: element,
+				comments: comments,
 			});
 		}
 	});
