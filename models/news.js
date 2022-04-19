@@ -1,4 +1,10 @@
 const mongoose = require("mongoose");
+
+const createDomPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+const domPurify = createDomPurify(new JSDOM().window);
+const { marked } = require('marked');
+
 const Permissions = require("../enums/permissions");
 const Schema = mongoose.Schema;
 
@@ -12,6 +18,10 @@ const newsSchema = new Schema({
 		type: String
 	},
 	text: {
+		type: String,
+		required: true
+	},
+	sanitizedHtml: {
 		type: String,
 		required: true
 	},
@@ -29,6 +39,15 @@ const newsSchema = new Schema({
 		default: Date.now
 	},
 });
+
+newsSchema
+	.pre('validate', function(next) {
+	if (this.text) {
+		const markedText = marked(this.text);
+		this.sanitizedHtml = domPurify.sanitize(markedText);
+	}
+	next();
+})
 
 const News = mongoose.model("News", newsSchema);
 
