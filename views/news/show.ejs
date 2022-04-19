@@ -10,7 +10,9 @@
         <%= element.createdAt.toLocaleDateString() %>
     </div>
     <div class="card-text mb-2"><%= element.description %></div>
-    <div class="card-text mb-2"><%= element.text %></div>
+    <div class="card-text mb-2">
+        <%- element.sanitizedHtml %>
+    </div>
 
     <div class="card-button mb-2">
         <a href="/" class="btn btn-secondary">All Elements</a>
