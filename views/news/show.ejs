@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partial/head') %>
+
+<body>
+<div class="container">
+    <h1 class="mb-1"><%= element.header %></h1>
+    <div class="card-subtitle text-muted mb-2">
+        <%= element.createdAt.toLocaleDateString() %>
+    </div>
+    <div class="card-text mb-2"><%= element.description %></div>
+    <div class="card-text mb-2">
+        <%- element.sanitizedHtml %>
+    </div>
+
+    <div class="card-button mb-2">
+        <a href="/" class="btn btn-secondary">All Elements</a>
+        <a href="/news/edit/<%= element.id %>" class="btn btn-info">Edit</a>
+    </div>
+
+    <div class="card-button mb-2">
+        <a href="/comment/edit/<%= element.id %>/" class="btn btn-success">Create Comment</a>
+    </div>
+
+    <% comments.forEach(comment => { %>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h6 class="card-title"><%= comment.author.email %></h6>
+                <div class="card-subtitle text-muted mb-2">
+                    <%= comment.createdAt.toLocaleDateString() %>
+                </div>
+                <div class="card-text mb-2"><%= comment.text %></div>
+            </div>
+        </div>
+    <% }) %>
+
+
+</div>
+</body>
+</html>

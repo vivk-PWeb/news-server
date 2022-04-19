@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partial/head') %>
+
+<body>
+<div class="container">
+    <h1 class="mb-4"><%= title %></h1>
+    <form action="<%= '/auth/'+authUrl %>" method="POST">
+        <%- include('partial/user_field') %>
+    </form>
+</div>
+</body>
+</html>

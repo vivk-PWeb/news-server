@@ -6,11 +6,21 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dompurify": "^2.3.6",
+    "ejs": "^3.1.6",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "jsdom": "^19.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "marked": "^4.0.14",
+    "mongoose": "^6.2.9",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11"
+    "passport-local-mongoose": "^7.0.0",
+    "pug": "2.0.0-beta11",
+    "validator": "^13.7.0"
   }
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partial/head') %>
+
+<body>
+<div class="container">
+    <h1 class="mb-4"><%= title %></h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <% if (user === null) { %>
+                <a href="/auth/sign-in" class="btn btn-success">Sign-In</a>
+                <a href="/auth/sign-up" class="btn btn-success">Sign-Up</a>
+            <% } else { %>
+                <div class="card-subtitle text-muted mb-2">
+                    <%= user.email %>
+                </div>
+                <div class="card-subtitle text-muted mb-2">
+                    <%= user.role %>
+                </div>
+                <a href="/auth/sign-out" class="btn btn-danger">Sign-Out</a>
+            <% } %>
+        </div>
+    </div>
+
+    <% if (user !== null && user.role === roles.Editor) { %>
+        <div class="card mt-4">
+            <div class="card-body">
+                <a href="/news/edit" class="btn btn-success">New Element</a>
+            </div>
+        </div>
+    <% } %>
+
+    <% news.forEach(element => { %>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title"><%= element.header %></h4>
+                <div class="card-subtitle text-muted mb-2">
+                    <%= element.createdAt.toLocaleDateString() %>
+                </div>
+                <div class="card-text mb-2"><%= element.description %></div>
+
+                <a href="news/<%= element.id %>" class="btn btn-primary">Read</a>
+
+                <% if (user !== null && user.role === roles.Editor) { %>
+                    <a href="news/edit/<%= element.id %>" class="btn btn-info">Edit</a>
+                    <form action="/news/delete/<%= element.id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    <% }) %>
+</div>
+</body>
+</html>
